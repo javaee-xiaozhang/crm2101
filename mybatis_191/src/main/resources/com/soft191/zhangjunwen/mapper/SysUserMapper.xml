@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soft191.zhangjunwen.mapper.SysUserMapper">
+
+    <resultMap id="SysUserMap" type="user">
+        <!--        封装user信息-->
+        <id column="userId" property="id"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="phoneNum" property="phoneNum"/>
+        <!--        封装roleList信息-->
+        <collection property="roleList" ofType="role">
+            <id column="roleId" property="id"/>
+            <result column="roleName" property="roleName"/>
+            <result column="roleDesc" property="roleDesc"/>
+        </collection>
+    </resultMap>
+    <select id="findUserAndRole" resultMap="SysUserMap">
+        SELECT * FROM sys_user_role ur,sys_user u,sys_role r WHERE u.id=ur.userId AND  ur.roleId=r.id
+    </select>
+
+</mapper>
